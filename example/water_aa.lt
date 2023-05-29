@@ -1,0 +1,51 @@
+# Compute the density of water.
+#
+# Compile with:
+# moltemplate.sh -atomstyle full -overlay-all -pdb ../multiscale/02_water_bm.pdb water_aa.lt
+
+# METADATA: the input variables that control the simulation.
+write_once("In Init"){
+ # Simulation name.
+ variable run string water_aa  # output log
+ echo            log
+ log   \$\{run\}.log
+
+# Input variables.
+variable s     equal 5
+variable prod     equal 20000
+variable cl     equal 400
+variable ts      equal 2
+variable tf     equal 298.15
+variable p      equal 1
+
+
+
+ # PBC
+ boundary p p p
+}
+
+# Import the force field.
+import ../molc/water_tip3p_01.lt
+import ../molc/aa_atb.lt
+ff = new atb_long
+
+# Create the molecules. The number MUST match number
+# of molecules in the input PDB structure.
+sol = new TIP3[64]
+
+# Create the initial velocity. This command in this point
+# is required when a simulation is restarted from a static
+# structure, i.e. without velocities.
+write_once("In Run"){
+ variable r format r1 %.0f
+ velocity all create \$\{tf\} \$r dist gaussian
+
+ # Apply the SHAKE algorithm to hydrogen atoms.
+ fix SHK all shake .0001 10 0 m 1.0079 a 1
+}
+
+# Define the task to execute.
+# It depends on files aa_tasks.lt and random_init.lt
+import ../molc/aa_tasks.lt
+task = default               # It includes the density and other standard thermodynamic output
+run = new aa_npt
