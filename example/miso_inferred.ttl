@@ -1,0 +1,963 @@
+@prefix : <http://www.openmodel.org/ontologies/miso#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.openmodel.org/ontologies/miso#> .
+
+<http://www.openmodel.org/ontologies/miso#> rdf:type owl:Ontology ;
+                                             <http://purl.org/dc/elements/1.1/description> """Material Imformatics Simulation Ontology
+
+An ontology about materials modelling workflows.
+
+This is an ontology created within the OpenModel Project by UCL and GCL and aims to be basis for a UC 1 in OpenModel."""@en ;
+                                             <http://purl.org/dc/elements/1.1/title> "miso"@en ;
+                                             <http://purl.org/dc/terms/contributor> "Adham Hashibon " ,
+                                                                                    "Othello Roscini" ,
+                                                                                    "Owain Beynon" ;
+                                             <http://purl.org/dc/terms/license> "Creative Commons Attribution 3.0 (CC BY 3.0)" ;
+                                             <http://purl.org/dc/terms/provenance> """v0.0.1 Initial version in a hackathon UCL IMD on February 2023 (London).
+
+v0.0.2 Added prefix and sanitised the metadata of the ontology (this one)"""@en ;
+                                             rdfs:label "miso" ;
+                                             owl:versionInfo "2.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/contributor
+<http://purl.org/dc/terms/contributor> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/provenance
+<http://purl.org/dc/terms/provenance> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+<http://www.w3.org/2004/02/skos/core#prefLabel> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.openmodel.org/ontologies/miso#Holistic
+:Holistic rdf:type owl:ObjectProperty .
+
+
+###  http://www.openmodel.org/ontologies/miso#has
+:has rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :Holistic .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasInput
+:hasInput rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasModel
+:hasModel rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasNext
+:hasNext rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasOutput
+:hasOutput rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasPart
+:hasPart rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :mereological .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasPrevious
+:hasPrevious rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasShortName
+:hasShortName rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :semiotic ;
+              rdfs:comment "should be inverse relation, or we should fine a better hierarchy for has short name," .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasUnit
+:hasUnit rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#hasValue
+:hasValue rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :has .
+
+
+###  http://www.openmodel.org/ontologies/miso#is
+:is rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf :Holistic .
+
+
+###  http://www.openmodel.org/ontologies/miso#isTypeVariable
+:isTypeVariable rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :is .
+
+
+###  http://www.openmodel.org/ontologies/miso#mereological
+:mereological rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.openmodel.org/ontologies/miso#semiotic
+:semiotic rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.openmodel.org/ontologies/miso#standsFor
+:standsFor rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :semiotic .
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
+                      rdf:type owl:SymmetricProperty ,
+                               owl:TransitiveProperty ,
+                               owl:ReflexiveProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.openmodel.org/ontologies/miso#number
+:number rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.openmodel.org/ontologies/miso#quantity
+:quantity rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :number .
+
+
+###  http://www.openmodel.org/ontologies/miso#string
+:string rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.openmodel.org/ontologies/miso#Al
+:Al rdf:type owl:Class ;
+    rdfs:subClassOf :PeriodicTableMaterials .
+
+
+###  http://www.openmodel.org/ontologies/miso#Area
+:Area rdf:type owl:Class ;
+      rdfs:subClassOf :Geometrical .
+
+
+###  http://www.openmodel.org/ontologies/miso#Atom
+:Atom rdf:type owl:Class ;
+      rdfs:subClassOf :Material ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :PeriodicTableMaterials
+                      ] ;
+      rdfs:label "Atom"@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#AtomicMassUnit
+:AtomicMassUnit rdf:type owl:Class ;
+                rdfs:subClassOf :MassUnit .
+
+
+###  http://www.openmodel.org/ontologies/miso#Atomistic
+:Atomistic rdf:type owl:Class ;
+           rdfs:subClassOf :MaterialsModel ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasPart ;
+                             owl:someValuesFrom :Atom
+                           ] ;
+           rdfs:comment "An atomistic model has some part which is atom, we do not infer direct and indirect parthood. Part is part." .
+
+
+###  http://www.openmodel.org/ontologies/miso#AtomisticModel
+:AtomisticModel rdf:type owl:Class ;
+                rdfs:subClassOf :Atomistic ,
+                                :PhysicsBasedModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#AtomisticMolecularDynamics
+:AtomisticMolecularDynamics rdf:type owl:Class ;
+                            rdfs:subClassOf :AtomisticModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#CP
+:CP rdf:type owl:Class ;
+    rdfs:subClassOf :ShortName .
+
+
+###  http://www.openmodel.org/ontologies/miso#CPMD
+:CPMD rdf:type owl:Class ;
+      rdfs:subClassOf :ShortName .
+
+
+###  http://www.openmodel.org/ontologies/miso#CarrParinelloMolecularDynamics
+:CarrParinelloMolecularDynamics rdf:type owl:Class ;
+                                rdfs:subClassOf :MolecularDynamics ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :hasPart ;
+                                                  owl:someValuesFrom :Electron
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :hasShortName ;
+                                                  owl:allValuesFrom :CPMD
+                                                ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Cartesian
+:Cartesian rdf:type owl:Class ;
+           rdfs:subClassOf :Coordinate .
+
+
+###  http://www.openmodel.org/ontologies/miso#CoarseGrainedMolecularDynamics
+:CoarseGrainedMolecularDynamics rdf:type owl:Class ;
+                                rdfs:subClassOf :MesoscopicModel ,
+                                                :MolecularDynamics .
+
+
+###  http://www.openmodel.org/ontologies/miso#Composition
+:Composition rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :has ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Material
+                                 ] ;
+             rdfs:subClassOf :Massive .
+
+
+###  http://www.openmodel.org/ontologies/miso#Continuum
+:Continuum rdf:type owl:Class ;
+           rdfs:subClassOf :MaterialsModel ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasPart ;
+                             owl:someValuesFrom :VolumeElement
+                           ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Coordinate
+:Coordinate rdf:type owl:Class ;
+            rdfs:subClassOf :Geometrical .
+
+
+###  http://www.openmodel.org/ontologies/miso#CorrelationLength
+:CorrelationLength rdf:type owl:Class ;
+                   rdfs:subClassOf :PhysicalQuantities .
+
+
+###  http://www.openmodel.org/ontologies/miso#CouplingConstant
+:CouplingConstant rdf:type owl:Class ;
+                  rdfs:subClassOf :Parameter .
+
+
+###  http://www.openmodel.org/ontologies/miso#Cu
+:Cu rdf:type owl:Class ;
+    rdfs:subClassOf :PeriodicTableMaterials .
+
+
+###  http://www.openmodel.org/ontologies/miso#CustomUnit
+:CustomUnit rdf:type owl:Class ;
+            rdfs:subClassOf :Unit ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :string ;
+                              owl:cardinality "1"^^xsd:nonNegativeInteger
+                            ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Data
+:Data rdf:type owl:Class ;
+      rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#DataBasedModel
+:DataBasedModel rdf:type owl:Class ;
+                rdfs:subClassOf :MaterialsModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#Density
+:Density rdf:type owl:Class ;
+         rdfs:subClassOf :Massive ;
+         rdfs:comment "Density of object" ;
+         rdfs:label "Density" .
+
+
+###  http://www.openmodel.org/ontologies/miso#Discrete
+:Discrete rdf:type owl:Class ;
+          rdfs:subClassOf :Variables .
+
+
+###  http://www.openmodel.org/ontologies/miso#Electron
+:Electron rdf:type owl:Class ;
+          rdfs:subClassOf :Material .
+
+
+###  http://www.openmodel.org/ontologies/miso#Electronic
+:Electronic rdf:type owl:Class ;
+            rdfs:subClassOf :MaterialsModel ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasPart ;
+                              owl:someValuesFrom :Electron
+                            ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#ElectronicModel
+:ElectronicModel rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicsBasedModel ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasPart ;
+                                   owl:someValuesFrom :Electron
+                                 ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Energy
+:Energy rdf:type owl:Class ;
+        rdfs:subClassOf :Spatial .
+
+
+###  http://www.openmodel.org/ontologies/miso#Equation
+:Equation rdf:type owl:Class ;
+          rdfs:subClassOf :Mathematical .
+
+
+###  http://www.openmodel.org/ontologies/miso#Extremum
+:Extremum rdf:type owl:Class ;
+          rdfs:subClassOf :Variables .
+
+
+###  http://www.openmodel.org/ontologies/miso#Force
+:Force rdf:type owl:Class ;
+       rdfs:subClassOf :Spatial .
+
+
+###  http://www.openmodel.org/ontologies/miso#ForceField
+:ForceField rdf:type owl:Class ;
+            rdfs:subClassOf :MaterialsRelation .
+
+
+###  http://www.openmodel.org/ontologies/miso#GROMOS
+:GROMOS rdf:type owl:Class ;
+        rdfs:subClassOf :ForceField .
+
+
+###  http://www.openmodel.org/ontologies/miso#GayBerne
+:GayBerne rdf:type owl:Class ;
+          rdfs:subClassOf :VanderWaals .
+
+
+###  http://www.openmodel.org/ontologies/miso#Geometrical
+:Geometrical rdf:type owl:Class ;
+             rdfs:subClassOf :PhysicalQuantities ;
+             rdfs:comment """A geometrical quantity (property), depends only on the location in space and time? or just space.
+
+Geometrical is an adjective that means of, relating to, or following the methods or principles of geometry12. It also means consisting of, formed by, or characterized by points, lines, curves, or surfaces1 or simple geometric forms in design and decoration34. Geometrical can also refer to something that increases in a geometric progression2. [bing summary from dictionaries).""" .
+
+
+###  http://www.openmodel.org/ontologies/miso#Grain
+:Grain rdf:type owl:Class ;
+       rdfs:subClassOf :mesoscopic .
+
+
+###  http://www.openmodel.org/ontologies/miso#GraunularDynamics
+:GraunularDynamics rdf:type owl:Class ;
+                   rdfs:subClassOf :CoarseGrainedMolecularDynamics .
+
+
+###  http://www.openmodel.org/ontologies/miso#H
+:H rdf:type owl:Class ;
+   rdfs:subClassOf :PeriodicTableMaterials .
+
+
+###  http://www.openmodel.org/ontologies/miso#IO
+:IO rdf:type owl:Class .
+
+
+###  http://www.openmodel.org/ontologies/miso#Input
+:Input rdf:type owl:Class ;
+       rdfs:subClassOf :IO .
+
+
+###  http://www.openmodel.org/ontologies/miso#Integral
+:Integral rdf:type owl:Class ;
+          rdfs:subClassOf :Variables .
+
+
+###  http://www.openmodel.org/ontologies/miso#Internal
+:Internal rdf:type owl:Class ;
+          rdfs:subClassOf :Energy .
+
+
+###  http://www.openmodel.org/ontologies/miso#Interval
+:Interval rdf:type owl:Class ;
+          rdfs:subClassOf :Variables .
+
+
+###  http://www.openmodel.org/ontologies/miso#Kinetic
+:Kinetic rdf:type owl:Class ;
+         rdfs:subClassOf :Energy .
+
+
+###  http://www.openmodel.org/ontologies/miso#KohnShamEquation
+:KohnShamEquation rdf:type owl:Class ;
+                  rdfs:subClassOf :SchroedingerEquation .
+
+
+###  http://www.openmodel.org/ontologies/miso#LennardJones
+:LennardJones rdf:type owl:Class ;
+              rdfs:subClassOf :VanderWaals .
+
+
+###  http://www.openmodel.org/ontologies/miso#LennardJones612
+:LennardJones612 rdf:type owl:Class ;
+                 rdfs:subClassOf :LennardJones .
+
+
+###  http://www.openmodel.org/ontologies/miso#Lists
+:Lists rdf:type owl:Class ;
+       rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#MD
+:MD rdf:type owl:Class ;
+    rdfs:subClassOf :ShortName ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :standsFor ;
+                      owl:someValuesFrom :MolecularDynamics
+                    ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Mass
+:Mass rdf:type owl:Class ;
+      rdfs:subClassOf :Massive ;
+      rdfs:comment "Mass of object" ;
+      rdfs:label "Mass" .
+
+
+###  http://www.openmodel.org/ontologies/miso#MassUnit
+:MassUnit rdf:type owl:Class ;
+          rdfs:subClassOf :Unit .
+
+
+###  http://www.openmodel.org/ontologies/miso#Massive
+:Massive rdf:type owl:Class ;
+         rdfs:subClassOf :PhysicalQuantities ;
+         rdfs:comment """A quantity that depends on a mass (matter) to actually exist, e.g., mass, density, etc. 
+
+note, this does not refer to the nature of the quantity it self, but to the medium it exists on.""" ;
+         rdfs:label "Massive"@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#Material
+:Material rdf:type owl:Class ;
+          rdfs:comment "This is any matter that is used in a context of physics, chemistry, materials science, engineeting etc. It is like a Werkstoff in German."@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#MaterialsModel
+:MaterialsModel rdf:type owl:Class ;
+                rdfs:subClassOf :Model ;
+                rdfs:comment """The elementary block of matter one is trying to mimic it behaviour, in other words the model entity, atoms, corse-grains, etc.
+
+as in saying:
+
+I want to model my material as a collection of electronics and nuclei interacting according to a specific scheme...
+
+
+a Materials model is a combination of the entities and the interaction between them, that mimics the behaviour of a real system to a certain desired (by design) degree."""@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#MaterialsRelation
+:MaterialsRelation rdf:type owl:Class ;
+                   rdfs:subClassOf :PhysicsBasedModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#Mathematical
+:Mathematical rdf:type owl:Class ;
+              rdfs:subClassOf :Model ,
+                              :Symbolic ;
+              rdfs:comment "Its a symbolic Model"@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#Maximum
+:Maximum rdf:type owl:Class ;
+         rdfs:subClassOf :Extremum .
+
+
+###  http://www.openmodel.org/ontologies/miso#MesoscopicModel
+:MesoscopicModel rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicsBasedModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#Metrology
+:Metrology rdf:type owl:Class ;
+           rdfs:comment "The science of weights and measures" .
+
+
+###  http://www.openmodel.org/ontologies/miso#Minimum
+:Minimum rdf:type owl:Class ;
+         rdfs:subClassOf :Extremum .
+
+
+###  http://www.openmodel.org/ontologies/miso#Model
+:Model rdf:type owl:Class .
+
+
+###  http://www.openmodel.org/ontologies/miso#ModelEntity
+:ModelEntity rdf:type owl:Class ;
+             rdfs:subClassOf :MaterialsModel ,
+                             [ rdf:type owl:Class ;
+                               owl:unionOf ( :Atom
+                                             :Continuum
+                                             :Electron
+                                             :mesoscopic
+                                           )
+                             ] ;
+             rdfs:comment """should not be here, but we should define modelentity as union of some material entities.
+
+
+ModelEntity describes a materials entity, 
+
+a materials entity can be an Atom, Electron, Grain, etc.. 
+
+hence we can write
+
+
+ModelEntity Describes MaterialsEntity which is an Atom 
+
+
+hence: 
+
+ModelEntity Describes an Atom""" .
+
+
+###  http://www.openmodel.org/ontologies/miso#ModelSystem
+:ModelSystem rdf:type owl:Class ;
+             rdfs:subClassOf :Model ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :has ;
+                               owl:someValuesFrom :Material
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :has ;
+                               owl:someValuesFrom :MaterialsModel
+                             ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Molc
+:Molc rdf:type owl:Class ;
+      rdfs:subClassOf :ForceField .
+
+
+###  http://www.openmodel.org/ontologies/miso#MolecularDynamics
+:MolecularDynamics rdf:type owl:Class ;
+                   rdfs:subClassOf :PhysicsBasedModel ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasPart ;
+                                                     owl:someValuesFrom :Atom
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasPart ;
+                                                     owl:someValuesFrom :Molecule
+                                                   ]
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasPart ;
+                                     owl:someValuesFrom :NewtonEquation
+                                   ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Molecule
+:Molecule rdf:type owl:Class ;
+          rdfs:subClassOf :Material .
+
+
+###  http://www.openmodel.org/ontologies/miso#MoltemplateScript
+:MoltemplateScript rdf:type owl:Class ;
+                   rdfs:subClassOf :ShellScript ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasInput ;
+                                     owl:someValuesFrom :Data
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasOutput ;
+                                     owl:someValuesFrom :Data
+                                   ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Monomer
+:Monomer rdf:type owl:Class ;
+         rdfs:subClassOf :Material .
+
+
+###  http://www.openmodel.org/ontologies/miso#NewtonEquation
+:NewtonEquation rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicsEquation .
+
+
+###  http://www.openmodel.org/ontologies/miso#Numerals
+:Numerals rdf:type owl:Class ;
+          rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#O
+:O rdf:type owl:Class ;
+   rdfs:subClassOf :PeriodicTableMaterials .
+
+
+###  http://www.openmodel.org/ontologies/miso#OPLS
+:OPLS rdf:type owl:Class ;
+      rdfs:subClassOf :ForceField .
+
+
+###  http://www.openmodel.org/ontologies/miso#Output
+:Output rdf:type owl:Class ;
+        rdfs:subClassOf :IO .
+
+
+###  http://www.openmodel.org/ontologies/miso#Parameter
+:Parameter rdf:type owl:Class ;
+           rdfs:subClassOf :Variables .
+
+
+###  http://www.openmodel.org/ontologies/miso#ParticleDynamics
+:ParticleDynamics rdf:type owl:Class ;
+                  rdfs:subClassOf :CoarseGrainedMolecularDynamics .
+
+
+###  http://www.openmodel.org/ontologies/miso#PeriodicTableMaterials
+:PeriodicTableMaterials rdf:type owl:Class ;
+                        rdfs:subClassOf :Material ;
+                        rdfs:comment "can be changed better to Element, PeriodicTableElements"@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#PhysicalQuantities
+:PhysicalQuantities rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :hasPart ;
+                                                                 owl:someValuesFrom :Unit
+                                                               ]
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :hasPart ;
+                                                                 owl:someValuesFrom :Value
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#PhysicsBasedModel
+:PhysicsBasedModel rdf:type owl:Class ;
+                   rdfs:subClassOf :MaterialsModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#PhysicsEquation
+:PhysicsEquation rdf:type owl:Class ;
+                 rdfs:subClassOf :Equation .
+
+
+###  http://www.openmodel.org/ontologies/miso#Polymer
+:Polymer rdf:type owl:Class ;
+         rdfs:subClassOf :Material .
+
+
+###  http://www.openmodel.org/ontologies/miso#Position
+:Position rdf:type owl:Class ;
+          rdfs:subClassOf :Coordinate .
+
+
+###  http://www.openmodel.org/ontologies/miso#Potential
+:Potential rdf:type owl:Class ;
+           rdfs:subClassOf :Energy .
+
+
+###  http://www.openmodel.org/ontologies/miso#Pressure
+:Pressure rdf:type owl:Class ;
+          rdfs:subClassOf :Spatial .
+
+
+###  http://www.openmodel.org/ontologies/miso#PythonCode
+:PythonCode rdf:type owl:Class ;
+            rdfs:subClassOf :SourceCode .
+
+
+###  http://www.openmodel.org/ontologies/miso#SampleInterval
+:SampleInterval rdf:type owl:Class ;
+                rdfs:subClassOf :Variables .
+
+
+###  http://www.openmodel.org/ontologies/miso#SchroedingerEquation
+:SchroedingerEquation rdf:type owl:Class ;
+                      rdfs:subClassOf :PhysicsEquation .
+
+
+###  http://www.openmodel.org/ontologies/miso#ShellScript
+:ShellScript rdf:type owl:Class ;
+             rdfs:subClassOf :SourceCode .
+
+
+###  http://www.openmodel.org/ontologies/miso#ShortName
+:ShortName rdf:type owl:Class ;
+           rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#Simulation
+:Simulation rdf:type owl:Class ;
+            rdfs:subClassOf :Model .
+
+
+###  http://www.openmodel.org/ontologies/miso#SimulationTool
+:SimulationTool rdf:type owl:Class ;
+                rdfs:subClassOf :SoftwareTool .
+
+
+###  http://www.openmodel.org/ontologies/miso#SoftwareTool
+:SoftwareTool rdf:type owl:Class ;
+              rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#SourceCode
+:SourceCode rdf:type owl:Class ;
+            rdfs:subClassOf :SoftwareTool .
+
+
+###  http://www.openmodel.org/ontologies/miso#Spatial
+:Spatial rdf:type owl:Class ;
+         rdfs:subClassOf :PhysicalQuantities ;
+         rdfs:comment """A quantity that exists and is expressed in a space, 
+
+A Quantity that depends on no massive object to exist, can exist in space time and spread. 
+
+e.g. heat, light, etc. 
+
+note, this does not refer to matter, but to teh quantity/property
+
+
+Spatial refers to something related to space and the relationship of objects within it1. It can also mean involving or having the nature of space234. Spatial can be used to describe the position, area, and size of things5.""" ,
+                      "Note that Time is implicit to all quantities, as we assume we are in a 4 dimensional space time manifold." ,
+                      "could also be called SpatioTemporal as we live in 4D Minkowski space.."@en ;
+         <http://www.w3.org/2004/02/skos/core#prefLabel> "Spatial"@en .
+
+
+###  http://www.openmodel.org/ontologies/miso#Spherical
+:Spherical rdf:type owl:Class ;
+           rdfs:subClassOf :Coordinate .
+
+
+###  http://www.openmodel.org/ontologies/miso#Step
+:Step rdf:type owl:Class ;
+      rdfs:subClassOf :Discrete .
+
+
+###  http://www.openmodel.org/ontologies/miso#Symbolic
+:Symbolic rdf:type owl:Class .
+
+
+###  http://www.openmodel.org/ontologies/miso#SystemComposition
+:SystemComposition rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :has ;
+                                         owl:someValuesFrom :Composition
+                                       ] ;
+                   rdfs:subClassOf :Massive .
+
+
+###  http://www.openmodel.org/ontologies/miso#Task
+:Task rdf:type owl:Class ;
+      rdfs:subClassOf :UnitOfWork ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasInput ;
+                        owl:someValuesFrom :Data
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasNext ;
+                        owl:someValuesFrom :Task
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasOutput ;
+                        owl:someValuesFrom :Data
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasPrevious ;
+                        owl:someValuesFrom :Task
+                      ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Temperature
+:Temperature rdf:type owl:Class ;
+             rdfs:subClassOf :Spatial .
+
+
+###  http://www.openmodel.org/ontologies/miso#ThermodynamicState
+:ThermodynamicState rdf:type owl:Class ;
+                    rdfs:subClassOf :Thermodynamics ,
+                                    [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :has ;
+                                                             owl:someValuesFrom :Pressure
+                                                           ]
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :has ;
+                                                             owl:someValuesFrom :Temperature
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#Thermodynamics
+:Thermodynamics rdf:type owl:Class .
+
+
+###  http://www.openmodel.org/ontologies/miso#Time
+:Time rdf:type owl:Class ;
+      rdfs:subClassOf :Coordinate .
+
+
+###  http://www.openmodel.org/ontologies/miso#Total
+:Total rdf:type owl:Class ;
+       rdfs:subClassOf :Integral .
+
+
+###  http://www.openmodel.org/ontologies/miso#Unit
+:Unit rdf:type owl:Class ;
+      rdfs:subClassOf :Metrology ,
+                      :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#UnitOfWork
+:UnitOfWork rdf:type owl:Class ;
+            rdfs:subClassOf :Work .
+
+
+###  http://www.openmodel.org/ontologies/miso#UnitedAtom
+:UnitedAtom rdf:type owl:Class ;
+            rdfs:subClassOf :CoarseGrainedMolecularDynamics .
+
+
+###  http://www.openmodel.org/ontologies/miso#Value
+:Value rdf:type owl:Class ;
+       rdfs:subClassOf :Numerals ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :quantity ;
+                         owl:cardinality "1"^^xsd:nonNegativeInteger
+                       ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#VanderWaals
+:VanderWaals rdf:type owl:Class ;
+             rdfs:subClassOf :ForceField .
+
+
+###  http://www.openmodel.org/ontologies/miso#Variables
+:Variables rdf:type owl:Class ;
+           rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#Vectors
+:Vectors rdf:type owl:Class ;
+         rdfs:subClassOf :Symbolic .
+
+
+###  http://www.openmodel.org/ontologies/miso#Velocity
+:Velocity rdf:type owl:Class ;
+          rdfs:subClassOf :Spatial .
+
+
+###  http://www.openmodel.org/ontologies/miso#Volume
+:Volume rdf:type owl:Class ;
+        rdfs:subClassOf :Geometrical .
+
+
+###  http://www.openmodel.org/ontologies/miso#VolumeElement
+:VolumeElement rdf:type owl:Class ;
+               rdfs:subClassOf :Volume .
+
+
+###  http://www.openmodel.org/ontologies/miso#Water
+:Water rdf:type owl:Class ;
+       rdfs:subClassOf :Material .
+
+
+###  http://www.openmodel.org/ontologies/miso#Work
+:Work rdf:type owl:Class .
+
+
+###  http://www.openmodel.org/ontologies/miso#Workflow
+:Workflow rdf:type owl:Class ;
+          rdfs:subClassOf :Work ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasPart ;
+                            owl:someValuesFrom :Task
+                          ] .
+
+
+###  http://www.openmodel.org/ontologies/miso#bead
+:bead rdf:type owl:Class ;
+      rdfs:subClassOf :mesoscopic .
+
+
+###  http://www.openmodel.org/ontologies/miso#cm
+:cm rdf:type owl:Class ;
+    rdfs:subClassOf :Unit .
+
+
+###  http://www.openmodel.org/ontologies/miso#g
+:g rdf:type owl:Class ;
+   rdfs:subClassOf :MassUnit .
+
+
+###  http://www.openmodel.org/ontologies/miso#kg
+:kg rdf:type owl:Class ;
+    rdfs:subClassOf :MassUnit .
+
+
+###  http://www.openmodel.org/ontologies/miso#mesoscopic
+:mesoscopic rdf:type owl:Class ;
+            rdfs:subClassOf :MaterialsModel .
+
+
+###  http://www.openmodel.org/ontologies/miso#nm
+:nm rdf:type owl:Class ;
+    rdfs:subClassOf :Unit .
+
+
+###  http://www.openmodel.org/ontologies/miso#ns
+:ns rdf:type owl:Class ;
+    rdfs:subClassOf :Unit .
+
+
+###  http://www.openmodel.org/ontologies/miso#second
+:second rdf:type owl:Class ;
+        rdfs:subClassOf :Unit .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

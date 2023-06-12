@@ -1,0 +1,5 @@
+identifier: miso
+ontology_file: /Users/owainbeynon/Documents/GitHub/UCL-openmodel/ontology/miso.ttl
+format: 'turtle'
+namespaces:
+  miso: http://www.openmodel.org/ontologies/miso#

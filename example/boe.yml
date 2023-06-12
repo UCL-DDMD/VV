@@ -1,5 +1,0 @@
-identifier: boe
-ontology_file: /Users/owainbeynon/Documents/GitHub/UCL-openmodel/ontology/best_ontology_ever_inferred.ttl
-format: 'turtle'
-namespaces:
-  boe: http://www.openmodel.org/ontologies/boe#

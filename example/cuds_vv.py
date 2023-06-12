@@ -4,12 +4,14 @@ from simphony_osp.tools import export_file, import_file, pretty_print, search
 from simphony_osp.tools.search import sparql
 from simphony_osp.tools.pico import install, namespaces, packages, uninstall
 from simphony_osp.session import Session, core_session
-from simphony_osp.namespaces import boe
+from simphony_osp.namespaces import miso
+from simphony_osp.tools import semantic2dot
+
 
 # TODO: 1) Pretty hard coded, need to soft code this
 #       2) delta method is a dummy example at the moment, need to refine
 #       3) also V&V part should be in a sepreate script/ function and called here
-install('boe.yml')
+install('miso.yml')
 
 #Strip lammps.log for simualtion data
 process_log_file('lammps.log')
@@ -31,92 +33,90 @@ cl =  extract_variable_value(moltemplate_file, 'cl')
 session = Session()
 
 # Create a simulation object
-simulation = boe.Simulation()
+simulation = miso.Simulation()
 
 #Create an object for inputs
-sim_input = boe.Input()
+sim_input = miso.Input()
 
 #Define material
-material = boe.Material()
+material = miso.Material()
 
 #Define the system
-water = boe.Water()
-O = boe.O()
-H = boe.H()
-water[boe.hasPart] = {O,H}
-material[boe.hasPart] = water
+water = miso.Water()
+O = miso.O()
+H = miso.H()
+water[miso.hasPart] = {O,H}
+material[miso.hasPart] = water
 
 #Make a model
 
-model = boe.Model()
+model = miso.Model()
 
 #Define variables and parameters
-input_temperature = boe.Temperature()
-input_pressure = boe.Pressure()
-input_time_step = boe.Time()
-input_correlation_length = boe.CorrelationLength()
+input_temperature = miso.Temperature()
+input_pressure = miso.Pressure()
+input_time_step = miso.Time()
+input_correlation_length = miso.CorrelationLength()
 
 
 
 #Assign input value
-temperature_value = boe.Value(quantity=tf)
-pressure_value = boe.Value(quantity=p)
-time_step_value = boe.Value(quantity=ts)
-correlation_length_value = boe.Value(quantity=cl)
+temperature_value = miso.Value(quantity=tf)
+pressure_value = miso.Value(quantity=p)
+time_step_value = miso.Value(quantity=ts)
+correlation_length_value = miso.Value(quantity=cl)
 
-input_temperature[boe.hasValue] = temperature_value
-input_pressure[boe.hasValue] = pressure_value
-input_time_step[boe.hasValue] = time_step_value
-input_correlation_length[boe.hasValue] = correlation_length_value
+input_temperature[miso.hasValue] = temperature_value
+input_pressure[miso.hasValue] = pressure_value
+input_time_step[miso.hasValue] = time_step_value
+input_correlation_length[miso.hasValue] = correlation_length_value
 
-model[boe.hasPart] = {input_temperature, input_pressure, input_time_step, input_correlation_length}
+model[miso.hasPart] = {input_temperature, input_pressure, input_time_step, input_correlation_length}
 
 #Define computational method
-comp_method = boe.MolecularDynamics()
-model[boe.hasPart] = comp_method
+comp_method = miso.MolecularDynamics()
+model[miso.hasPart] = comp_method
 
 #Define materials relation
-mat_rel = boe.OPLS()
-model[boe.hasPart] = mat_rel
+mat_rel = miso.OPLS()
+model[miso.hasPart] = mat_rel
 
 #Define physics equation
-phys_eq = boe.NewtonEquation()
-model[boe.hasPart] = phys_eq
+phys_eq = miso.NewtonEquation()
+model[miso.hasPart] = phys_eq
 
 # #Define engine
-# lammps = boe.LAMMPS()
-# model[boe.hasPart] = lammps
+# lammps = miso.LAMMPS()
+# model[miso.hasPart] = lammps
 
 #Add model and material to input
-sim_input[boe.hasPart] = material
-sim_input[boe.hasModel] = model
+sim_input[miso.hasPart] = material
+sim_input[miso.hasModel] = model
 
 
 
 #Define outputs
 
-sim_output = boe.Output()
+sim_output = miso.Output()
 
 #Add density information
-density = boe.Density()
-value = boe.Value(quantity=density_data)
-unit = boe.CustomUnit(string='g/cm^3')
-density[boe.hasValue] = value
-density[boe.hasUnit] = unit
+density = miso.Density()
+value = miso.Value(quantity=density_data)
+unit = miso.CustomUnit(string='g/cm^3')
+density[miso.hasValue] = value
+density[miso.hasUnit] = unit
 
 #Add simulation step information
-step = boe.Step()
-step_value = boe.Value(quantity=step_data)
-step[boe.hasValue] = step_value
-density[boe.hasPart] = step
+step = miso.Step()
+step_value = miso.Value(quantity=step_data)
+step[miso.hasValue] = step_value
+density[miso.hasPart] = step
 
-sim_output[boe.hasPart] = density
+sim_output[miso.hasPart] = density
 
 #Add to simulation
-simulation[boe.hasInput] = sim_input
-simulation[boe.hasOutput] = sim_output
-
-
+simulation[miso.hasInput] = sim_input
+simulation[miso.hasOutput] = sim_output
 
 session.add(simulation)
 
@@ -125,14 +125,16 @@ session.add(simulation)
 
 session.commit()
 
+
+
 # Query density data using SPARQL
 
 result = sparql(
     f"""
     SELECT ?densityValue WHERE {{
-        ?density rdf:type <{boe.Density.identifier}> .
-        ?density <{boe.hasValue}> ?value .
-        ?value <{boe.quantity}> ?densityValue .
+        ?density rdf:type <{miso.Density.identifier}> .
+        ?density <{miso.hasValue}> ?value .
+        ?value <{miso.quantity}> ?densityValue .
     }}
     """
 )
@@ -160,6 +162,7 @@ from sklearn.linear_model import BayesianRidge
 
 x = [0, 2000, 4000, 6000, 8000, 10000, 12000, 14000, 16000, 18000]
 y1 = [0.69, 0.9656, 0.9656, 0.89, 0.932,0.911,0.9729, 0.975, 0.92326574, 0.852]
+# y1 = [0.89] * len(x)
 
 
 plt.scatter(x, density_values, label='Simulation')
