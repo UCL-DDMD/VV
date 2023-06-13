@@ -1,10 +1,14 @@
-# from cuds_wrapper import get_data, process_log_file
+ # from cuds_wrapper import get_data, process_log_file
 from cuds_wrapper import get_data, process_log_file, extract_variable_value
 from simphony_osp.tools import export_file, import_file, pretty_print, search
 from simphony_osp.tools.search import sparql
 from simphony_osp.tools.pico import install, namespaces, packages, uninstall
 from simphony_osp.session import Session, core_session
 from simphony_osp.namespaces import boe
+
+
+#### Script that  creates a CUDS using BOE and SimPhoNy which stores simulation data.
+#### Data is then queried using SPARQL and is used for simple Bayesian regression
 
 # TODO: 1) Pretty hard coded, need to soft code this
 #       2) delta method is a dummy example at the moment, need to refine
